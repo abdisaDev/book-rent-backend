@@ -7,4 +7,5 @@ export class UserRegistrationDto {
   status: boolean;
   role: string;
   reveneu: 0;
+  isOwnerApproved: boolean;
 }

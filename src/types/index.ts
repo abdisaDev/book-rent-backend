@@ -6,4 +6,5 @@ export type UserRegistrationType = {
   role: string;
   status: boolean;
   revenue: number;
+  isOwnerApproved: boolean;
 };
