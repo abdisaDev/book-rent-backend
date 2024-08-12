@@ -14,4 +14,8 @@ export class UsersService {
     const userInstance = this.userRepository.create(registerUserPayload);
     return this.userRepository.save(userInstance);
   }
+
+  fetchUsers() {
+    return this.userRepository.find();
+  }
 }
