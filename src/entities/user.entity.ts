@@ -6,6 +6,9 @@ export class User {
   id: number;
 
   @Column()
+  name: string;
+
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -14,7 +17,7 @@ export class User {
   @Column()
   location: string;
 
-  @Column()
+  @Column({ unique: true })
   phone_number: string;
 
   @Column()
