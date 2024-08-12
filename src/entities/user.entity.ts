@@ -6,10 +6,19 @@ export class User {
   id: number;
 
   @Column()
-  first_name: string;
+  email: string;
 
   @Column()
-  last_name: string;
+  password: string;
+
+  @Column()
+  location: string;
+
+  @Column()
+  phone_number: string;
+
+  @Column()
+  role: string;
 
   @Column()
   status: boolean;
