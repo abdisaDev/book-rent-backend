@@ -24,5 +24,8 @@ export class User {
   status: boolean;
 
   @Column()
+  isOwnerApproved: boolean;
+
+  @Column()
   revenue: number;
 }
