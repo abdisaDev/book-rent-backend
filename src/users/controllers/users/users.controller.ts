@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -32,6 +33,24 @@ export class UsersController {
       return {
         status: HttpStatus.ACCEPTED,
         message: 'Owner Registred Successfuly.',
+      };
+    }
+  }
+
+  @Get()
+  async fetchUsers() {
+    try {
+      this.userService.fetchUsers();
+    } catch (error) {
+      throw new HttpException(
+        'Error While Fetching Owners',
+        HttpStatus.BAD_REQUEST,
+      );
+    } finally {
+      return {
+        status: HttpStatus.ACCEPTED,
+        message: 'Owner Fetched Successfuly.',
+        data: await this.userService.fetchUsers(),
       };
     }
   }
