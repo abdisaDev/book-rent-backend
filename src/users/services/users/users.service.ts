@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserRegistrationType } from 'src/types';
@@ -17,5 +17,26 @@ export class UsersService {
 
   fetchUsers() {
     return this.userRepository.find();
+  }
+
+  async updateUserStatus(userEmail: string) {
+    const user = await this.userRepository.findOne({
+      where: { email: userEmail },
+    });
+    if (!user)
+      throw new HttpException("Couldn't find user.", HttpStatus.BAD_REQUEST);
+    user.status = !user.status;
+    return await this.userRepository.save(user);
+  }
+
+  async approveUser(userEmail: string) {
+    const user = await this.userRepository.findOne({
+      where: { email: userEmail },
+    });
+    if (!user)
+      throw new HttpException("Couldn't find user.", HttpStatus.BAD_REQUEST);
+    Object.assign(user, { isOwnerApproved: !user.isOwnerApproved });
+    // user.isOwnerApproved = !user.isOwnerApproved;
+    return await this.userRepository.save(user);
   }
 }

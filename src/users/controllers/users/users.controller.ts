@@ -16,13 +16,14 @@ export class UsersController {
   @Post('register')
   async registerUser(@Body() userRegistrationPayload: UserRegistrationDto) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { confirm_password, ...rest } = userRegistrationPayload;
+    const { confirm_password, email, ...rest } = userRegistrationPayload;
     try {
       await this.userService.registerUser({
         status: false,
         revenue: 0,
         isOwnerApproved: false,
         role: 'owner',
+        email: email.toLowerCase(),
         ...rest,
       });
       return {
@@ -30,6 +31,7 @@ export class UsersController {
         message: 'Owner Registred Successfuly.',
       };
     } catch (error) {
+      console.log(error);
       throw new HttpException(
         'Error While Registering User',
         HttpStatus.BAD_REQUEST,
@@ -50,6 +52,32 @@ export class UsersController {
         'Error While Fetching Owners',
         HttpStatus.BAD_REQUEST,
       );
+    }
+  }
+
+  @Post('activate')
+  async updateUserStatus(@Body() userEmail: { email: string }) {
+    try {
+      await this.userService.updateUserStatus(userEmail.email.toLowerCase());
+      return {
+        status: HttpStatus.ACCEPTED,
+        data: 'User Status Has Been Updated.',
+      };
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Post('approve')
+  async approveUser(@Body() userEmail: { email: string }) {
+    try {
+      await this.userService.approveUser(userEmail.email.toLowerCase());
+      return {
+        status: HttpStatus.ACCEPTED,
+        data: 'User Status Has Been Updated.',
+      };
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }
   }
 }

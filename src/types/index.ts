@@ -8,3 +8,8 @@ export type UserRegistrationType = {
   revenue: number;
   isOwnerApproved: boolean;
 };
+
+export type AuthValidationType = {
+  email: string;
+  password: string;
+};
