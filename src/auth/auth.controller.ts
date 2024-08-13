@@ -23,7 +23,7 @@ export class AuthController {
         'Invalid Email or Password',
         HttpStatus.BAD_REQUEST,
       );
-
-    return user;
+    console.log(user);
+    return { access_token: user, status: HttpStatus.ACCEPTED };
   }
 }
