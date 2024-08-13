@@ -11,7 +11,7 @@ import { Book } from './entities/book.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -21,7 +21,7 @@ import { Book } from './entities/book.entity';
       username: process.env.DB_USERNAME,
       password: String(process.env.DB_PASSWORD),
       entities: [User, Book],
-      synchronize: true,
+      ssl: true,
     }),
     UsersModule,
     AuthModule,
