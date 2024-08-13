@@ -22,8 +22,8 @@ export class AuthService {
 
     if (authPayload.password === user.password) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...user } = authPayload;
-      return this.jwtService.sign(user);
+      const { password, ...rest } = user;
+      return this.jwtService.sign(rest);
     }
   }
 }
