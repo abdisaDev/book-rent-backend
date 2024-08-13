@@ -16,6 +16,7 @@ export class AuthService {
   async validateUser(authPayload: AuthValidationType) {
     const user = await this.userRepository.findOne({
       where: { email: authPayload.email },
+      relations: ['books'],
     });
     if (!user)
       throw new HttpException("User Doesn't Exist", HttpStatus.BAD_REQUEST);
