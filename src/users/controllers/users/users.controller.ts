@@ -5,7 +5,9 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserRegistrationDto } from 'src/dtos/userRegistration.dto';
 import { UsersService } from 'src/users/services/users/users.service';
 
@@ -40,6 +42,7 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async fetchUsers() {
     try {
       return {
@@ -56,6 +59,7 @@ export class UsersController {
   }
 
   @Post('activate')
+  @UseGuards(AuthGuard('jwt'))
   async updateUserStatus(@Body() userEmail: { email: string }) {
     try {
       await this.userService.updateUserStatus(userEmail.email.toLowerCase());
@@ -69,6 +73,7 @@ export class UsersController {
   }
 
   @Post('approve')
+  @UseGuards(AuthGuard('jwt'))
   async approveUser(@Body() userEmail: { email: string }) {
     try {
       await this.userService.approveUser(userEmail.email.toLowerCase());
