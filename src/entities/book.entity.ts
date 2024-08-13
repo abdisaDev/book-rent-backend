@@ -19,7 +19,13 @@ export class Book {
   category: string;
 
   @Column()
+  price: number;
+
+  @Column()
   status: boolean;
+
+  @Column()
+  cover_page: string;
 
   @ManyToOne('user', 'book')
   user: User;
