@@ -13,3 +13,12 @@ export type AuthValidationType = {
   email: string;
   password: string;
 };
+
+export type NewBookType = {
+  name: string;
+  author: string;
+  category: string;
+  quantity: number;
+  price: number;
+  cover_page: string;
+};

@@ -3,20 +3,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserRegistrationType } from 'src/types';
 import { Repository } from 'typeorm';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  registerUser(registerUserPayload: UserRegistrationType) {
-    const userInstance = this.userRepository.create(registerUserPayload);
+  async registerUser(registerUserPayload: UserRegistrationType) {
+    const { password, ...rest } = registerUserPayload;
+    const salt = await bcrypt.genSalt(5);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const userInstance = this.userRepository.create({
+      password: hashedPassword,
+      ...rest,
+    });
     return this.userRepository.save(userInstance);
   }
 
   fetchUsers() {
-    return this.userRepository.find();
+    return this.userRepository.find({ relations: ['books'] });
   }
 
   async updateUserStatus(userEmail: string) {

@@ -42,7 +42,7 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   async fetchUsers() {
     try {
       return {
@@ -51,10 +51,7 @@ export class UsersController {
         data: await this.userService.fetchUsers(),
       };
     } catch (error) {
-      throw new HttpException(
-        'Error While Fetching Owners',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
