@@ -21,8 +21,11 @@ export class UsersService {
     return this.userRepository.save(userInstance);
   }
 
-  fetchUsers() {
-    return this.userRepository.find({ relations: ['books'] });
+  async fetchUsers() {
+    const owners = (
+      await this.userRepository.find({ relations: ['books'] })
+    ).filter((user) => user.role !== 'admin');
+    return owners;
   }
 
   async updateUserStatus(userEmail: string) {
