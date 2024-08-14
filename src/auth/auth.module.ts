@@ -16,7 +16,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       envFilePath: '.development.env',
     }),
     JwtModule.register({
-      secret: process.env.SECRET,
+      secret: '2fcapital',
       signOptions: {
         expiresIn: '1d',
       },
