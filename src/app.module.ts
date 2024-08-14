@@ -22,9 +22,8 @@ import { Book } from './entities/book.entity';
       password: String(process.env.DB_PASSWORD),
       entities: [User, Book],
       ssl: {
-        enableTrace: true,
-        cert: process.env.SSL_CERT,
-        keepAlive: true,
+        rejectUnauthorized: true,
+        ca: process.env.SSL_CERT,
       },
     }),
     UsersModule,
