@@ -21,10 +21,11 @@ import { Book } from './entities/book.entity';
       username: process.env.DB_USERNAME,
       password: String(process.env.DB_PASSWORD),
       entities: [User, Book],
-      ssl: {
-        rejectUnauthorized: true,
-        ca: process.env.SSL_CERT,
-      },
+      synchronize: true,
+      // ssl: {
+      //   rejectUnauthorized: true,
+      //   ca: process.env.SSL_CERT,
+      // },
     }),
     UsersModule,
     AuthModule,
