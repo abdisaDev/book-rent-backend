@@ -33,6 +33,6 @@ export class User {
   @Column()
   revenue: number;
 
-  @OneToMany('book', 'user')
+  @OneToMany(() => Book, (book) => book.user)
   books: Book[];
 }
