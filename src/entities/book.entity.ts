@@ -27,6 +27,6 @@ export class Book {
   @Column()
   cover_page: string;
 
-  @ManyToOne('user', 'book')
+  @ManyToOne(() => User, (user) => user.books)
   user: User;
 }

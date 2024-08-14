@@ -22,10 +22,10 @@ import { Book } from './entities/book.entity';
       password: String(process.env.DB_PASSWORD),
       entities: [User, Book],
 
-      ssl: {
-        rejectUnauthorized: true,
-        ca: process.env.SSL_CERT,
-      },
+      // ssl: {
+      //   rejectUnauthorized: true,
+      //   ca: process.env.SSL_CERT,
+      // },
     }),
     UsersModule,
     AuthModule,
